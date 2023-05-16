@@ -14,7 +14,7 @@
 }
 
 body {
-  background-image: url("a\ \(1\).gif");
+  background-image: url("images/autumn.gif");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 90px;
