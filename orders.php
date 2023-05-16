@@ -14,8 +14,7 @@ if (!$conn) {
 }
 
 $pending = "Pending";
-$ready = "Ready";
-$sql = "SELECT `orders_id`, `product_id`, `users_id`, `order_quantity`, `total_price`, `date_ordered`, `status` FROM `orders` WHERE `status` = '$pending' OR `status` = '$ready'";
+$sql = "SELECT `orders_id`, `product_id`, `users_id`, `order_quantity`, `total_price`, `date_ordered`, `status` FROM `orders` WHERE `status` = '$pending'";
 $result = $conn->query($sql);
 
 ?>
@@ -33,7 +32,7 @@ $result = $conn->query($sql);
     <style>
         th,
         td {
-            border: 1px solid black;
+            border: 2px solid white;
             padding: 8px;
             text-align: left;
         }
@@ -119,10 +118,10 @@ $result = $conn->query($sql);
             <tr>
                 <th scope="col" style="width: 15%">Customer Name</th>
                 <th scope="col" style="width: 10%">Product Name</th>
-                <th scope="col" style="width: 7.5%">Order quantity</th>
+                <th scope="col" style="width: 9.5%">Order quantity</th>
                 <th scope="col" style="width: 7.5%">Total price</th>
                 <th scope="col" style="width: 10%">Date ordered</th>
-                <th scope="col" style="width: 10%">Status</th>
+                <th scope="col" style="width: 8%">Status</th>
                 <th scope="col" style="width: 10%"></th>
             </tr>
         </thead>
@@ -200,7 +199,7 @@ $result = $conn->query($sql);
                     }
                 }
             } else {
-                echo "<tr><td colspan='8' style='text-align:center;'>No products available</td></tr>";
+                echo "<tr><td colspan='7' style='text-align:center;'>No products available</td></tr>";
             }
             ob_end_flush();
             ?>

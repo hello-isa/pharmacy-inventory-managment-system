@@ -32,7 +32,7 @@ $result = $conn->query($sql);
   <style>
     th,
     td {
-      border: 1px solid black;
+      border: 2px solid white;
       padding: 8px;
       text-align: left;
     }

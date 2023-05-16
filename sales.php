@@ -45,7 +45,7 @@ $result2 = $conn->query($total_query);
     <style>
         th,
         td {
-            border: 1px solid black;
+            border: 2px solid white;
             padding: 8px;
             text-align: left;
         }
@@ -128,13 +128,13 @@ $result2 = $conn->query($total_query);
     <table class="table table-striped" style="width: 70%; margin-left: 340px;">
         <thead>
             <tr>
-                <th scope="col" style="width: 10%">Customer Email</th>
-                <th scope="col" style="width: 10%">Product Name</th>
-                <th scope="col" style="width: 10%">Product Description</th>
-                <th scope="col" style="width: 10%">Order Quantity</th>
-                <th scope="col" style="width: 10%">Order Price</th>
+                <th scope="col" style="width: 13%">Customer Email</th>
+                <th scope="col" style="width: 11.5%">Product Name</th>
+                <th scope="col" style="width: 20%">Product Description</th>
+                <th scope="col" style="width: 11%">Order Quantity</th>
+                <th scope="col" style="width: 9.5%">Order Price</th>
                 <th scope="col" style="width: 10%">Date Ordered</th>
-                <th scope="col" style="width: 10%">Status</th>
+                <th scope="col" style="width: 5%">Status</th>
             </tr>
         </thead>
 

@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['email'] = $email;
       $_SESSION['id'] = $id;
       if ($row['usertype'] === "Customer") {
-        header("Location: home.php");
+        header("Location: cart.php");
       } else {
         header("Location: users.php");
       }
