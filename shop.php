@@ -115,7 +115,7 @@ $result = $conn->query($sql);
             // Add click event listeners to each order button
             orderButtons.forEach(function(button) {
                 button.addEventListener("click", function() {
-                    // event.preventDefault(); // Makes the modal stay but the database does not get updated
+                    // event.preventDefault(); // Makes the modal stay but the database does not get
                     modal.style.display = "block";
                     setTimeout(function() {
                         modal.style.display = "none";
