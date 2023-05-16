@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 07:05 PM
+-- Generation Time: May 16, 2023 at 06:14 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -34,7 +34,7 @@ CREATE TABLE `orders` (
   `order_quantity` int(11) NOT NULL,
   `total_price` float NOT NULL,
   `date_ordered` datetime NOT NULL,
-  `status` enum('Pending','Ready') NOT NULL DEFAULT 'Pending'
+  `status` enum('Partial','Pending','Ready') NOT NULL DEFAULT 'Partial'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -42,10 +42,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orders_id`, `product_id`, `users_id`, `order_quantity`, `total_price`, `date_ordered`, `status`) VALUES
-(162, 1, 35, 10, 800, '2023-04-02 08:14:39', 'Ready'),
-(163, 2, 35, 5, 67.5, '2023-04-02 08:14:41', 'Ready'),
-(178, 1, 67, 5, 400, '2023-04-02 19:39:26', 'Ready'),
-(182, 2, 68, 5, 67.5, '2023-04-03 15:16:34', 'Ready');
+(223, 6, 93, 2, 53, '2023-05-16 11:58:10', 'Pending'),
+(224, 10, 93, 10, 385, '2023-05-16 11:58:10', 'Pending'),
+(231, 2, 93, 5, 67.5, '2023-05-16 11:59:29', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -67,28 +66,27 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `quantity`, `availability`, `product_price`) VALUES
-(1, 'Biogesic', 'Analgesic and antipyretic', 16, 'Available', 80),
+(1, 'Biogesics', 'Analgesic and antipyretics', 16, 'Available', 25.5),
 (2, 'Decolgen', 'Decongestant and antipyretic', 5, 'Available', 13.5),
 (3, 'Neozep', 'Decongestant and antihistamine', 5, 'Available', 13.5),
-(6, 'Bioflu', 'Analgesic, antipyretic, and decongestant', 10, 'Available', 26.5),
-(7, 'Gaviscon', 'Antacid', 25, 'Available', 35),
+(6, 'Bioflu', 'Analgesic, antipyretic, and decongestant', 5, 'Available', 26.5),
+(7, 'Gaviscon', 'Antacid', 10, 'Available', 35),
 (8, 'Kremil-S', 'Antacid', 10, 'Available', 37),
 (9, 'Mefenamic Acid', 'Analgesic and anti-inflammatory', 10, 'Available', 38),
-(10, 'Cetirizine', 'Antihistamine', 10, 'Available', 38.5),
-(11, 'Loratadine', 'Antihistamine', 10, 'Available', 39),
-(12, 'Paracetamol', 'Analgesic and antipyretic', 10, 'Available', 39.5),
+(10, 'Cetirizine', 'Antihistamine', 0, 'Unavailable', 38.5),
+(11, 'Loratadine', 'Antihistamine', 5, 'Available', 39),
+(12, 'Paracetamol', 'Analgesic and antipyretic', 10, 'Unavailable', 39.5),
 (13, 'Amoxicillin', 'Antibiotic', 10, 'Available', 42),
 (14, 'Losartan', 'Antihypertensive', 10, 'Available', 44),
 (15, 'Omeprazole', 'Proton pump inhibitor', 10, 'Available', 45),
 (16, 'Simvastatin', 'Antihyperlipidemic', 10, 'Available', 47),
-(17, 'Atenolol', 'Beta blocker', 10, 'Available', 48),
+(17, 'Atenolol', 'Beta blocker', 10, 'Unavailable', 48),
 (18, 'Metformin', 'Antidiabetic', 10, 'Available', 50),
 (19, 'Folic Acid', 'Vitamin supplement', 10, 'Available', 53),
 (20, 'Aspirin', 'Analgesic and antiplatelet', 10, 'Available', 55),
 (21, 'Metronidazole', 'Antibiotic and antiprotozoal', 10, 'Available', 57),
-(22, 'Gliclazide', 'Antidiabetic', 10, 'Available', 58),
 (23, 'Cefalexin', 'Antibiotic', 10, 'Available', 62),
-(24, 'Captopril', 'ACE inhibitor', 10, 'Available', 63),
+(24, 'Captoprils', 'ACE inhibitor', 15, 'Available', 63),
 (25, 'Loperamide', 'Antidiarrheal', 10, 'Available', 65),
 (26, 'Diclofenac', 'NSAID', 10, 'Available', 68),
 (27, 'Enalapril', 'ACE inhibitor', 10, 'Available', 70),
@@ -98,7 +96,7 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `quantity`, `availa
 (31, 'Losartan', 'ARB', 10, 'Available', 82),
 (32, 'Amoxicillin', 'Antibiotic', 10, 'Available', 85),
 (33, 'Cetirizine', 'Antihistamine', 10, 'Available', 90),
-(56, 'Cheriffer', 'Capsule', 10, 'Available', 60);
+(59, 'Cheriffer', 'Capsule', 5, 'Available', 20);
 
 -- --------------------------------------------------------
 
@@ -110,9 +108,9 @@ CREATE TABLE `users` (
   `id` int(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `registration` timestamp NOT NULL DEFAULT current_timestamp(),
-  `usertype` varchar(250) DEFAULT 'Customer'
+  `usertype` enum('Customer','Admin') DEFAULT 'Customer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -120,12 +118,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `registration`, `usertype`) VALUES
-(35, 'artstyle123', '123', '123', '2023-03-27 10:55:59', 'Customer'),
-(63, '09455996355@usc.edu.ph', '09455996355', '09455996355', '2023-03-27 12:46:59', 'Customer'),
-(64, 'jorwen@gmail.com', 'rokiki', '12345', '2023-03-27 23:53:58', 'Customer'),
-(65, 'mark@gmail.com', 'mark', '123', '2023-04-01 12:17:10', 'Customer'),
-(67, 'lmao@lmao', 'lmao', 'lmao', '2023-04-01 22:58:37', 'Customer'),
-(68, 'jasper@gmail.com', 'ciscogod', 'ciscogod', '2023-04-03 07:11:20', 'Customer');
+(90, '09455996355@usc.edu.ph', '09455996355', '$2y$10$RE2Lo4zqpdtvHA/LiJs6qe062YlqJUqmkUfGdbWKqHepO5YYvx6iC', '2023-04-22 03:53:12', 'Customer'),
+(91, 'byceGPT@gmail.com', 'beansandboba', '$2y$10$XU8Mx71p0Dd1lv/Bs1MdauX8yq1PA5VeepKxeWD0ixtaOSUbKgLCm', '2023-04-26 06:10:27', 'Customer'),
+(92, 'jasper@gmail.com', 'gwapo', '$2y$10$H6LBR0d1C3A7jV5tS1U0LupV68kpZX7J/oLLI.PHNHMV.KQciFehq', '2023-04-29 08:14:49', 'Admin'),
+(93, 'xavier@gmail.com', 'guitarhero', '$2y$10$uJFU9k4RnViQjkzEgClT4Ol27YV83dmQY1a3HfKZWtyYo9fiqJfIq', '2023-04-29 09:03:29', 'Customer'),
+(94, 'arjoy@gmail.com', 'arjoy', '$2y$10$l3/z0CI2XenhJ5s8Bs6FQ.qkws8b8Pg0aSDx6wF4pyOQWOOclwrBu', '2023-05-15 20:36:49', 'Customer'),
+(95, 'ivannebayer@gmail.com', 'asd', '$2y$10$afk5qihD7DF3czxl4G4CJe6IPZCwxXBMcoMtWBMV5PcRfC7uD7tGO', '2023-05-15 20:40:16', 'Customer');
 
 --
 -- Indexes for dumped tables
@@ -159,19 +157,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- Constraints for dumped tables
