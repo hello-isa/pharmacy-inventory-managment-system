@@ -62,7 +62,7 @@
 <body>
     <section class="about">
         <div class="main">
-            <img src="logo.png">
+            <img src="logoo.png">
             <div class="about-text">
                 <h1>About Us</h1>
                 <h5>ALV Pharmacy</h5>
