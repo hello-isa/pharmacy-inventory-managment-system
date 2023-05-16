@@ -1,4 +1,4 @@
-<!-- Side nav -->
+<!-- Admin page: Side nav -->
 <div class="flex-column p-3 bg-light" style="width: 280px; height: 100vh; z-index: 1000; position: absolute;">
     <!-- Account  -->
     <div class="m-3">
