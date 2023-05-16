@@ -16,6 +16,7 @@
 
 body {
   background-image: url("images/autumn.gif");
+  width 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 90px;
@@ -88,8 +89,7 @@ body {
   margin-left: 10px;
   margin-top: 17px;
   font-size: 30px;
-  position: 100px;
-  
+  position: 100px; 
 }
 
 .header-container {
