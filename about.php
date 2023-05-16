@@ -10,7 +10,6 @@
             margin: 0;
             font-family: 'Josefin Sans', sans-serif;
             box-sizing: border-box;
-            overflow: hidden;
         }
         
         .about{
