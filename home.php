@@ -122,7 +122,7 @@ body {
 
 .icon-container {
     position: absolute;
-    bottom: 30px;
+    bottom: 50px;
     left: 60%;
     transform: translateX(-50%);
     z-index: 1; /* This places the icon above the background image */
