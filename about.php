@@ -10,7 +10,6 @@
             margin: 0;
             font-family: 'Josefin Sans', sans-serif;
             box-sizing: border-box;
-            overflow: hidden;
         }
         
         .about{
@@ -138,7 +137,7 @@
 
     <section class="about">
         <div class="main">
-            <img src="images/logoo.png">
+            <img src="images/logo.png">
             <div class="about-text">
                 <h1>About Us</h1>
                 <h5>ALV Pharmacy</h5>
