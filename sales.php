@@ -1,8 +1,8 @@
-<!-- Admin Page -->
+<!-- Admin page: Sales -->
 <?php
 ob_start();
 //--Nav-Bar--//
-//--Records sales made for each day, a succesfull sale is determined if status is no longer pending and admins can also check the most sales made within a specific day--//
+//--Records sales made for each day, a successful sale is determined if status is no longer pending and admins can also check the most sales made within a specific day--//
 
 include("sidenav.php");
 

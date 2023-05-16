@@ -1,4 +1,4 @@
-<!-- Admin Page -->
+<!-- Admin page: Products -->
 <?php
 ob_start();
 //--Nav-Bar--//
