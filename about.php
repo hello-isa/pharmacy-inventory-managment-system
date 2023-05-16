@@ -134,6 +134,27 @@
           </li>
       </ul>
   </div>
+  
+  <?php
+
+  $host = "localhost";
+  $user = "root";
+  $pass = "";
+  $db = "pharmacy_inventory_db";
+
+  $conn = mysqli_connect($host, $user, $pass, $db);
+
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+
+  $partial = "Partial";
+  $sql = "SELECT `orders_id`, `product_id`, `users_id`, `order_quantity`, `total_price`, `date_ordered`, `status` FROM `orders` WHERE `users_id` = '$users_id' AND `status` = '$partial'";
+
+  $result = $conn->query($sql);
+
+  ?>
+
     <section class="about">
         <div class="main">
             <img src="logoo.png">
