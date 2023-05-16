@@ -89,6 +89,7 @@ body {
   margin-top: 17px;
   font-size: 30px;
   position: 100px;
+  
 }
 
 .header-container {
@@ -121,7 +122,7 @@ body {
 
 .icon-container {
     position: absolute;
-    bottom: 10px;
+    bottom: 50px;
     left: 60%;
     transform: translateX(-50%);
     z-index: 1; /* This places the icon above the background image */
