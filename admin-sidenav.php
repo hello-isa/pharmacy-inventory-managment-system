@@ -1,60 +1,4 @@
-<!-- Admin page: Users -->
-<?php
-ob_start();
-
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "pharmacy_inventory_db";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-$sql = "SELECT id, email, username, password, registration, usertype from users";
-$result = $conn->query($sql);
-
-?>
-
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <title>Homepage</title>
-  <link rel="stylesheet" href="css\style(code).css" />
-  <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflaire.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-  <style>
-    th,
-    td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-    }
-
-    input {
-      background-color: transparent;
-      border: transparent;
-    }
-  </style>
-
-  <script>
-    function deleteRow(ids) {
-      id.splice(ids, 1);
-      bookname.splice(ids, 1);
-      genre.splice(ids, 1);
-      quantity.splice(ids, 1);
-    }
-  </script>
-</head>
-
-<body>
-  <!-- Side nav -->
+<!-- Side nav -->
 <div class="flex-column p-3 bg-light" style="width: 280px; height: 100vh; z-index: 1000; position: absolute;">
     <!-- Account  -->
     <div class="m-3">
@@ -72,7 +16,7 @@ $result = $conn->query($sql);
     <!-- Links -->
     <ul class="nav nav-pills flex-column" style="margin-bottom: 420px;">
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link active" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
                     <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/></svg>
                 Orders</a>
@@ -92,7 +36,7 @@ $result = $conn->query($sql);
                     Sales</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="">
+            <a class="nav-link" href="">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
                 <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
                 Users</a>
@@ -112,111 +56,3 @@ $result = $conn->query($sql);
         </li>
     </ul>
 </div>
-  <br><br>
-
-  <!-- TABLE -->
-  <table class="table table-striped" style="width: 70%; margin-left: 340px;">
-    <thead>
-      <tr>
-        <th scope="col" style="width: 15%">Email</th>
-        <th scope="col" style="width: 10%">Username</th>
-        <th scope="col" style="width: 15%">Registration</th>
-        <th scope="col" style="width: 10%">Usertype</th>
-        <th scope="col" style="width: 10%"></th>
-        <th scope="col" style="width: 10%"></th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <?php
-
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>
-      <form action='" . $_SERVER['PHP_SELF'] . "' method='POST'>
-        <td><input type='text' name='email' value='" . $row["email"] . "'></td>
-        <td><input type='text' name='username' value='" . $row["username"] . "'></td>
-        <td>" . $row["registration"] . "</td>
-        <td>";
-          if ($row["usertype"] == "Customer") {
-            echo "<button type='submit' class='btn btn-info' style='color:#FFF;' name='customer'>Customer</button>";
-          } else {
-            echo "<button type='submit' class='btn btn-warning' style='color:#FFF;' name='admin'>Admin</button>";
-          }
-          echo "</td>
-        <td><button onclick='deleteRow(" . $row["id"] . ")'type='submit' class='btn btn-danger' name='delete' value='" . $row["id"] . "'>Delete</button></td>
-        <td>
-          <input type='hidden' name='id' value='" . $row["id"] . "'>
-          <button type='submit' class='btn btn-success' name='update'>Update</button>
-        </td>
-      </form>
-    </tr>";
-        }
-
-        // Available to Unavailable functionality lmao
-        if (isset($_POST['customer'])) {
-          $id = $_POST['id'];
-          $usertype = "Admin";
-
-          $sql = "UPDATE `users` SET usertype = '$usertype' WHERE id='$id'";
-
-          if ($conn->query($sql) === TRUE) {
-            header("Refresh:0");
-          } else {
-            echo "Error updating record: " . $conn->error;
-          }
-        }
-
-        // Unavailable to Available functionality lmao
-        if (isset($_POST['admin'])) {
-          $id = $_POST['id'];
-          $usertype = "Customer";
-
-          $sql = "UPDATE `users` SET usertype = '$usertype' WHERE id='$id'";
-
-          if ($conn->query($sql) === TRUE) {
-            header("Refresh:0");
-          } else {
-            echo "Error updating record: " . $conn->error;
-          }
-        }
-      } else {
-        echo "<tr><td colspan='7'>No results found</td></tr>";
-      }
-
-      // Edit functionality uwu
-      if (isset($_POST['update'])) {
-        $id = $_POST['id'];
-        $email = $_POST['email'];
-        $username = $_POST['username'];
-        $usertype = $_POST['usertype'];
-
-        $sql = "UPDATE `users` SET email='$email', username='$username', usertype='$usertype' WHERE id='$id'";
-
-        if ($conn->query($sql) === TRUE) {
-          header("Refresh:0");
-        } else {
-          echo "Error updating user details: " . $conn->error;
-        }
-      }
-
-      // Delete functionality kekw
-      if (isset($_POST['delete'])) {
-        $id = $_POST['delete'];
-        $sql = "DELETE FROM `users` WHERE id = $id";
-
-        if ($conn->query($sql) === TRUE) {
-          header("Refresh:0");
-        } else {
-          echo "Error deleting record: " . $conn->error;
-        }
-      }
-
-      ob_end_flush();
-      ?>
-
-    </tbody>
-  </table>
-</body>
-
-</html>
