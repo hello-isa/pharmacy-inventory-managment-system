@@ -1,4 +1,4 @@
-<!-- Customer Page -->
+<!-- Customer page: Shop -->
 <?php
 ob_start();
 //--Nav-Bar--//
