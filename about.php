@@ -3,7 +3,7 @@
 
 <head>
     <title>About Us | ALV Pharmacy</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
         *{
             padding: 0;
