@@ -40,6 +40,41 @@ $result = $conn->query($sql);
             background-color: transparent;
             border: transparent;
         }
+        
+        <!-- Style of the modal -->
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+        }
     </style>
 
     <script>
@@ -65,8 +100,42 @@ $result = $conn->query($sql);
             numEl.value = quantity;
             event.preventDefault();
         }
-    </script>
+        
+            // Modal JS
+            document.addEventListener("DOMContentLoaded", function() {
+            // Get the modal element
+            var modal = document.getElementById("myModal");
 
+            // Get all the order buttons
+            var orderButtons = document.querySelectorAll(".orderButton");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // Add click event listeners to each order button
+            orderButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    // event.preventDefault(); // Makes the modal stay but the database does not get
+                    modal.style.display = "block";
+                    setTimeout(function() {
+                        modal.style.display = "none";
+                    }, 5000); // Set the timer to 5 seconds (5000 milliseconds)
+                });
+            });
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        });
+    </script>
 </head>
 
 <body>
@@ -148,6 +217,20 @@ $result = $conn->query($sql);
             </li>
         </ul>
     </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+        <span class="close">&times;</span>
+            <p style="text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+            </svg>
+            Order placed successfully.</p>
+        </div>
+    </div>
+
     <br><br>
 
     <!-- TABLE -->
@@ -221,7 +304,7 @@ $result = $conn->query($sql);
         <input type='hidden' name='product_ids' value='" . $row["product_id"] . "'>
         <input type='hidden' name='productprice' value='" . $row["product_price"] . "'>
         <input type='hidden' name='availability2' value='" . $row["availability"] . "'>
-        <button type='submit' class='btn btn-primary' style='color: white;' name='order'>Order</button>
+        <button type='submit' class='btn btn-primary orderButton' id='' style='color: white' name='order'>Order</button>
         </td>
         
         </form>
@@ -256,6 +339,9 @@ $result = $conn->query($sql);
 
             ?>
     </table>
+
+    <script>
+    </script>
 </body>
 
 </html>
