@@ -1,3 +1,5 @@
+<?php include 'costumer-sidenav.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -166,12 +168,12 @@ body {
       <button class="get-started-button">Explore More →</button>
     </div>
     <div class="icon-container">
-      <img src="heart.png" alt="Icon 1" class="icon">
-      <img src="nurse.png" alt="Icon 2" class="icon">
-      <img src="syringe.png" alt="Icon 3" class="icon">
-      <img src="pulse.png" alt="Icon 4" class="icon">
-      <img src="health_book.png" alt="Icon 5" class="icon">
-      <img src="pharma.png" alt="Icon 6" class="icon">
+      <img src="images/heart.png" alt="Icon 1" class="icon">
+      <img src="images/nurse.png" alt="Icon 2" class="icon">
+      <img src="images/syringe.png" alt="Icon 3" class="icon">
+      <img src="images/pulse.png" alt="Icon 4" class="icon">
+      <img src="images/health_book.png" alt="Icon 5" class="icon">
+      <img src="images/pharma.png" alt="Icon 6" class="icon">
     </div>
   </div>
 </body>
