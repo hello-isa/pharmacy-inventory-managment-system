@@ -24,7 +24,7 @@ $result = $conn->query($sql);
 
 <head>
   <meta charset="UTF-8" />
-  <title>Homepage</title>
+  <title>Users</title>
   <link rel="stylesheet" href="css\style(code).css" />
   <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflaire.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
