@@ -9,11 +9,12 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
+
 </head>
 
 <body>
     <!-- Side nav -->
-    <div class="flex-column p-3 bg-light" style="width: 280px; height: 750px; z-index: 1000; position: absolute;">
+    <div class="flex-column p-3 bg-light" style="width: 280px; height: 100%; z-index: 1000; position: fixed;">
         <!-- Account  -->
         <div class="m-3">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none" aria-expanded="false">
@@ -29,7 +30,7 @@
         <hr>
 
         <!-- Pages -->
-        <ul class="nav nav-pills flex-column" style="margin-bottom: 510px;">
+        <ul class="nav nav-pills flex-column" style="margin-bottom: 320px;">
             <li class="nav-item">
                 <a class="nav-link " aria-current="page" href="home.php">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
@@ -81,7 +82,7 @@
         <hr>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">
+                <a class="nav-link" href="login.php">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
@@ -106,10 +107,11 @@
     }
 
     $ready = "Ready";
+    $pending = "Pending";
     $sql = "SELECT o.`orders_id`, o.`product_id`, o.`users_id`, o.`order_quantity`, o.`total_price`, o.`date_ordered`, o.`status`, u.email 
         FROM `orders` o 
         JOIN `users` u ON o.users_id = u.id 
-        WHERE o.`users_id` = '$users_id' AND o.`status` = '$ready'";
+        WHERE o.`users_id` = '$users_id' AND o.`status` = '$ready' OR o.`status` = '$pending'";
 
     $result = $conn->query($sql);
 
@@ -117,74 +119,117 @@
 
     <br><br>
 
-    <!-- TABLE -->
     <?php
-    echo '
-<table class="body-wrap">
-    <tbody><tr>
-        <td></td>
-        <td class="container" width="600">
-            <div class="content">
-                <table class="main" width="100%" cellpadding="0" cellspacing="0">
-                    <tbody><tr>
-                        <td class="content-wrap aligncenter">
-                            <table width="100%" cellpadding="0" cellspacing="0">
-                                <tbody><tr>
-                                    <td class="content-block">
-                                        <h2>Thanks for using our app</h2>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        <table class="invoice">
-                                            <tbody><tr>
-                                                <td>Anna Smith<br>Invoice #12345<br>June 01 2015</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
-                                                        <tbody><tr>
-                                                            <td>Service 1</td>
-                                                            <td class="alignright">$ 20.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service 2</td>
-                                                            <td class="alignright">$ 10.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service 3</td>
-                                                            <td class="alignright">$ 6.00</td>
-                                                        </tr>
-                                                        <tr class="total">
-                                                            <td class="alignright" width="80%">Total</td>
-                                                            <td class="alignright">$ 36.00</td>
-                                                        </tr>
-                                                    </tbody></table>
+    $sql = "SELECT p.name AS product_name, o.order_quantity, o.total_price, o.date_ordered, o.status
+FROM products p
+JOIN orders o ON p.product_id = o.product_id
+ORDER BY o.date_ordered DESC";
+
+    $result = $conn->query($sql);
+    $currentDate = null; // Variable to store the current date
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $date = $row['date_ordered'];
+
+            // Check if the date has changed or it's the first iteration
+            if ($date != $currentDate) {
+                // Close the previous container if it's opened
+                if ($currentDate !== null) {
+                    echo '
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>'; // Add a line break to separate receipts
+                }
+
+                // Open a new container
+                echo '
+                <div style="width: 600px; margin: 0 auto;">
+                    <table class="body-wrap" style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td class="container">
+                                    <div class="content">
+                                        <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="content-wrap aligncenter">
+                                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="content-block">
+                                                                        <h2>Thanks for ordering at ALV Pharmacy!</h2>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="content-block">
+                                                                        <table class="invoice" style="width: 100%;">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>' . $_SESSION['email'] . '<br>Invoice #123<br>' . $row['date_ordered'] . '</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <table class="invoice-items" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <th>Product Name</th>
+                                                                                                    <th>Order Quantity</th>
+                                                                                                    <th>Total Price</th>
+                                                                                                    <th>Status</th>
+                                                                                                </tr>';
+            }
+
+            // Print the ordered product information
+            echo '
+                                                                                                <tr>
+                                                                                                    <td>' . $row['product_name'] . '</td>
+                                                                                                    <td>' . $row['order_quantity'] . '</td>
+                                                                                                    <td>' . $row['total_price'] . '</td>
+                                                                                                    <td>' . $row['status'] . '</td>
+                                                                                                </tr>';
+
+            $currentDate = $date; // Update the current date
+        }
+
+        // Close the last container if it's opened
+        if ($currentDate !== null) {
+            echo '
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </td>
                                             </tr>
-                                        </tbody></table>
+                                        </tbody>
+                                        </table>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        <a href="#">View in browser</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        Company Inc. 123 Van Ness, San Francisco 94102
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </td>
-                    </tr>
-                </tbody></table>';
+                            </tbody>
+                        </table>
+                    </div>';
+        }
+    }
     ?>
 
-    </div>
-    </td>
-    <td></td>
-    </tr>
-    </tbody>
-    </table>
 </body>
