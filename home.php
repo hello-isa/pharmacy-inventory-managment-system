@@ -16,8 +16,7 @@
 
 body {
   background-image: url("images/autumn.gif");
-  width 100%;
-  background-size: 150%;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: 90px;
   margin: 0;
