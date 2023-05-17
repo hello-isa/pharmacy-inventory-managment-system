@@ -271,13 +271,13 @@ $result = $conn->query($sql);
 
                     if ($conn->query($sql) === TRUE && $conn->query($sql2) === TRUE) {
                         echo '<div class="error-container">
-                        <div class="card text-white bg-danger mb-3" style="position: fixed; bottom: 10px; right: 10px;">
-                        <div class="card-header">Error
+                        <div class="card text-white bg-success mb-3" style="position: fixed; bottom: 10px; right: 10px;">
+                        <div class="card-header">Success
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeContainer()">
                         <span aria-hidden="true">&times;</span>
                         </button></div>
                         <div class="card-body">
-                          <p class="card-text">Product is not available at the moment</br>please order when available!</p>
+                          <p class="card-text">Product has been succesfully ordered!</p>
                         </div>
                       </div>
                       </div>';
